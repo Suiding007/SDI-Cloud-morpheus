@@ -1,5 +1,5 @@
 # proxansi-morpheus
-before you start creating and maintaining virtual machines and containers in proxmox by using ansible scripts. You need first to install dependencies.
+before you start creating and maintaining virtual machines and containers within proxmox, by using ansible scripts. you need first to install certain dependencies.
 It is important to know, that the ansible master need to have a connection with the proxmox server.
 
 ## Install ansible
