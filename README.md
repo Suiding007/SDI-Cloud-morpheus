@@ -12,7 +12,7 @@ install ansible packages
 sudo apt install ansible
 ```
 
-### Install ansible dependencies
+## Install ansible dependencies
 firstly install de python libary proxmoxer
 ```
 pip install proxmoxer
