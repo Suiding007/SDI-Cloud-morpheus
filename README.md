@@ -2,6 +2,8 @@
 before you start creating and maintaining virtual machines and containers in proxmox by using ansible scripts. You need first to install dependencies.
 It is important to know, that the ansible master need to have a connection with the proxmox server.
 
+## Install ansible
+
 
 ### Install ansible dependencies
 firstly install de python libary proxmoxer
@@ -12,3 +14,6 @@ if certain modules not existend, then use the follow command to install all modu
 ```
 ansible-galaxy collection install community.general
 ```
+
+### docs links
+ansible documentation (proxmox_kvm)[https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_kvm_module.html]
