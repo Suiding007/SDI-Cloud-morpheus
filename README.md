@@ -1,2 +1,2 @@
 # proxansi-morpheus
-Repostirory for proxmox scripts using ansible
+Repository for proxmox scripts using ansible
