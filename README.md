@@ -3,7 +3,14 @@ before you start creating and maintaining virtual machines and containers in pro
 It is important to know, that the ansible master need to have a connection with the proxmox server.
 
 ## Install ansible
-
+get the latest version of ansible
+```
+sudo add-apt-repository ppa:ansible/ansible 
+```
+install ansible packages
+```
+sudo apt install ansible
+```
 
 ### Install ansible dependencies
 firstly install de python libary proxmoxer
