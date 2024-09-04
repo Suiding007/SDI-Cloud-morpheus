@@ -17,7 +17,7 @@ firstly install de python libary proxmoxer
 ```
 pip install proxmoxer
 ```
-if certain modules not existend, then use the follow command to install all modules that can been used
+if certain modules not existend, then use the follow command to install all modules that can been used with proxmox
 ```
 ansible-galaxy collection install community.general
 ```
