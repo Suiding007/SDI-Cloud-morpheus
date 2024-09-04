@@ -1,5 +1,5 @@
 # proxansi-morpheus
-Repository for proxmox scripts using ansible
+before you start creating and maintaining virtual machines and containers in proxmox by using ansible scripts. You need first to install dependencies.
 
 
 ### Install proxmoxer
