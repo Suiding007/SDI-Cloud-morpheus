@@ -22,6 +22,22 @@ if certain modules not existend, then use the follow command to install all modu
 ansible-galaxy collection install community.general
 ```
 
+pveam update
+pveam available
+pveam download local(location for iso and ct templates) [container name]
+pveam list local
+
+
 ### docs links
 ansible documentation [proxmox_kvm](https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_kvm_module.html)
+* https://pve.proxmox.com/pve-docs/qm.1.html
+* https://pve.proxmox.com/pve-docs/pct.1.html
+* https://pve.proxmox.com/wiki/Linux_Container
+* https://noted.lol/building-a-lxc-in-proxmox-with-automation/
+* https://www.shellhacks.com/mysql-run-query-bash-script-linux-command-line/
+* https://www.freecodecamp.org/news/shell-scripting-crash-course-how-to-write-bash-scripts-in-linux/
+* https://www.freecodecamp.org/news/shell-scripting-crash-course-how-to-write-bash-scripts-in-linux/
+* https://www.youtube.com/watch?v=PNCF4QFItSo
+* https://www.youtube.com/watch?v=h8qEXBp--WU 
+
 
