@@ -22,10 +22,10 @@ if certain modules not existend, then use the follow command to install all modu
 ansible-galaxy collection install community.general
 ```
 
-pveam update
-pveam available
-pveam download local(location for iso and ct templates) [container name]
-pveam list local
+* pveam update
+* pveam available
+* pveam download local(location for iso and ct templates) [container name]
+* pveam list local
 
 
 ### docs links
