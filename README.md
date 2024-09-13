@@ -21,7 +21,7 @@ if certain modules not existend, then use the follow command to install all modu
 ```
 ansible-galaxy collection install community.general
 ```
-#Proxmox commands
+# Proxmox commands
 ```
 #updating lxc container list
 pveam update
