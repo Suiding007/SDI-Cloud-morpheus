@@ -42,6 +42,9 @@ pveam list local
 
 ### docs links
 ansible documentation [proxmox_kvm](https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_kvm_module.html)
+Qemu-proxmox documentatuin [qemu] (https://pve.proxmox.com/pve-docs/qm.1.html)
+
+
 * https://pve.proxmox.com/pve-docs/qm.1.html
 * https://pve.proxmox.com/pve-docs/pct.1.html
 * https://pve.proxmox.com/wiki/Linux_Container
