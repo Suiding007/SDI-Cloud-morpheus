@@ -41,11 +41,11 @@ pveam list local
 
 
 ### docs links
-ansible documentation [proxmox_kvm](https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_kvm_module.html)
+ansible documentation [link](https://docs.ansible.com/ansible/latest/collections/community/general/proxmox_kvm_module.html)
 <br>
-Qemu-proxmox documentatuin [qemu](https://pve.proxmox.com/pve-docs/qm.1.html)
+Qemu-proxmox documentatuin [link](https://pve.proxmox.com/pve-docs/qm.1.html)
 <br>
-pct-proxmox documentation [pct](https://pve.proxmox.com/pve-docs/pct.1.html)
+pct-proxmox documentation [link](https://pve.proxmox.com/pve-docs/pct.1.html)
 <br>
 
 
