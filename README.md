@@ -47,7 +47,11 @@ Qemu-proxmox documentatuin: [link](https://pve.proxmox.com/pve-docs/qm.1.html)
 <br>
 pct-proxmox documentation: [link](https://pve.proxmox.com/pve-docs/pct.1.html)
 <br>
-
+creatin a lxc with CLI:  [link](https://noted.lol/building-a-lxc-in-proxmox-with-automation/)
+<br>
+working of EOF in bash-script: [link](https://www.shellhacks.com/mysql-run-query-bash-script-linux-command-line/)
+<br>
+working with bash scripts: [link](https://www.freecodecamp.org/news/shell-scripting-crash-course-how-to-write-bash-scripts-in-linux/)
 
 
 * https://pve.proxmox.com/pve-docs/qm.1.html
