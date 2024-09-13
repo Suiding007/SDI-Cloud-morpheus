@@ -23,10 +23,17 @@ ansible-galaxy collection install community.general
 ```
 #Proxmox commands
 ```
-pveam update #updating lxc container list
-pveam available #shows available lxc containers templates
-pveam download local(location for iso and ct templates) [container name] #download container template
-pveam list local #list download lxc templates
+#updating lxc container list
+pveam update
+
+#shows available lxc containers templates
+pveam available 
+
+#download container template
+pveam download local(location for iso and ct templates) [container name] 
+
+#list download lxc templates
+pveam list local 
 
 
 ```
