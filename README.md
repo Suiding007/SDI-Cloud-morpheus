@@ -1,6 +1,6 @@
 # SDN-Cloud-morpheus
 Before you start creating and maintaining virtual machines and containers within proxmox, by using ansible scripts. you need first to install certain dependencies.
-It is important to know, that the ansible master need to have a connection with the proxmox server.
+It is important to know, that the ansible master need to have a connection with the proxmox server by over ssh.
 
 ## Install ansible
 get the latest version of ansible
