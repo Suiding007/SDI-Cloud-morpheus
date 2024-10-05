@@ -11,7 +11,7 @@ runcmd:
   - apt upgrade -y
   - apt install -y qemu-guest-agent
   - systemctl start qemu-guest-agent
-  - wget -O /tmp/espo-crm_install.sh https://raw.githubusercontent.com/jhbos/SDI2425-437407/refs/heads/main/espo-crm/espo-crm_install.sh?token=GHSAT0AAAAAACXA4AZKB66GLLKWUVDFUUPOZYBZCWQ
+  - wget -O /tmp/espo-crm_install.sh https://raw.githubusercontent.com/Suiding007/SDI-Cloud-morpheus/refs/heads/main/espo-crm/espo-crm_install.sh
   - chmod +x /tmp/espo-crm_install.sh
   - /tmp/espo-crm_install.sh
 
