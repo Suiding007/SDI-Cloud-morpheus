@@ -1,5 +1,5 @@
 #! /bin/bash
-IP=$(hostname -i)
+IP=$(hostname -I)
 HOSTNAME=$(hostname)
 SERVER=10.24.27.14
 META=wordpress

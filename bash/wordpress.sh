@@ -1,4 +1,5 @@
 #! /bin/bash
+#improved by chatgpt
 #add user
 NAME=Test
 PASSWORD=testing

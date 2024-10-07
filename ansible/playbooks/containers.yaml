@@ -21,15 +21,15 @@
     #contaier configuration
     containers: 
       - { id: 300, hostname: wordpress1, gw: 10.24.27.1, ip: 10.24.27.20/24 }
-      # - { id: 301, hostname: wordpress2, gw: 10.24.27.1, ip: 10.24.27.21/24 }
-      # - { id: 302, hostname: wordpress3, gw: 10.24.27.1, ip: 10.24.27.22/24 } 
-      # - { id: 303, hostname: wordpress4, gw: 10.24.27.1, ip: 10.24.27.23/24 }
-      # - { id: 304, hostname: wordpress5, gw: 10.24.27.1, ip: 10.24.27.24/24 } 
-      # - { id: 305, hostname: wordpress6, gw: 10.24.27.1, ip: 10.24.27.25/24 }
-      # - { id: 306, hostname: wordpress7, gw: 10.24.27.1, ip: 10.24.27.26/24 } 
-      # - { id: 307, hostname: wordpress8, gw: 10.24.27.1, ip: 10.24.27.27/24 }
-      # - { id: 308, hostname: wordpress9, gw: 10.24.27.1, ip: 10.24.27.28/24 } 
-      # - { id: 309, hostname: wordpress10, gw: 10.24.27.1, ip: 10.24.27.29/24 }
+      - { id: 301, hostname: wordpress2, gw: 10.24.27.1, ip: 10.24.27.21/24 }
+      - { id: 302, hostname: wordpress3, gw: 10.24.27.1, ip: 10.24.27.22/24 } 
+      - { id: 303, hostname: wordpress4, gw: 10.24.27.1, ip: 10.24.27.23/24 }
+      - { id: 304, hostname: wordpress5, gw: 10.24.27.1, ip: 10.24.27.24/24 } 
+      - { id: 305, hostname: wordpress6, gw: 10.24.27.1, ip: 10.24.27.25/24 }
+      - { id: 306, hostname: wordpress7, gw: 10.24.27.1, ip: 10.24.27.26/24 } 
+      - { id: 307, hostname: wordpress8, gw: 10.24.27.1, ip: 10.24.27.27/24 }
+      - { id: 308, hostname: wordpress9, gw: 10.24.27.1, ip: 10.24.27.28/24 } 
+      - { id: 309, hostname: wordpress10, gw: 10.24.27.1, ip: 10.24.27.29/24 }
 
   tasks:
   - name: Find /var/log files equal or greater than 10 megabytes ending with .old or .log.gz via regex

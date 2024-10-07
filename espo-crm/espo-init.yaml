@@ -1,2 +1,25 @@
 #cat << EOF | tee /mnt/pve/files-storage/snippets/vendor.yaml
 #improved by chatgpt
+#cloud-config
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+
+packages:
+  - wget
+
+runcmd:
+  - apt update
+  - apt upgrade -y
+  - apt install -y qemu-guest-agent
+  - systemctl start qemu-guest-agent
+  - wget http://raw.githubusercontent.com/Suiding007/SDI-Cloud-morpheus/refs/heads/main/espo-crm/espo-crm_install.sh
+  - chmod +x espo-crm_install.sh
+  - ./espo-crm_install.sh
+  - wget http://raw.githubusercontent.com/Suiding007/SDI-Cloud-morpheus/refs/heads/main/zabbix/zabbix_agent.sh
+  - chmod +x zabbix_agent.sh
+  - ./zabbix_agent.sh
+
+
+ 
