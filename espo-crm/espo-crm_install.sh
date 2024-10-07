@@ -4,7 +4,7 @@ DB_NAME="espocrm"
 DB_USER="espocrmuser"
 DB_PASSWORD="Ubuntu"
 DB_HOST="localhost"
-IP=$(hostname -I)
+IP=$(hostname -I | awk '{print $1}')
 
 apt update
 apt install apache2
