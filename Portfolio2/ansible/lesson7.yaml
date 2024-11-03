@@ -1,0 +1,33 @@
+---
+#https://www.baeldung.com/ops/ansible-create-directory
+#https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
+#https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html
+
+
+- name: create and run Docker image
+  hosts: docker1
+  tasks:
+    - name: Create a Directory
+      file:
+        path: ./simplidocker
+        state: directory 
+
+    - name: create Dockerfile
+      file:
+        path: ./simplidocker/Dockerfile
+        state: touch
+
+    - name: Insert config into the Dockerfile
+      copy:
+        dest: ./simplidocker/Dockerfile
+        content: |
+          FROM ubuntu
+          MAINTAINER simpli
+          RUN apt-get update
+          CMD ["echo", "Welcome to Simplilearn"]
+    
+    - name: Build docker image
+      command: docker build /root/simplidocker -t simpli_image
+
+
+

@@ -1,0 +1,121 @@
+---
+#sudo ansible-playbook -i /etc/ansible/hosts lesson4.yaml -u root --ask-pass
+- name: Create and start a proxmox container
+  hosts: pve1270
+  vars:
+    #basic configuration
+    cores: 1
+    memory: 1024
+    storage: vm-pool
+    gb: 20
+    password: Ubuntu
+
+    #network
+    net0_name: eth0
+    bridge: vmbr0
+    type: veth
+    firewall: 1
+    rate: 50
+    dns: 1.1.1.1
+
+    #contaier configuration
+    containers: 
+      - { id: 500, hostname: docker1, gw: 10.24.27.1, ip: 10.24.27.40/24 }
+      - { id: 501, hostname: docker2, gw: 10.24.27.1, ip: 10.24.27.41/24 }
+      - { id: 502, hostname: docker3, gw: 10.24.27.1, ip: 10.24.27.42/24 } 
+      - { id: 503, hostname: docker4, gw: 10.24.27.1, ip: 10.24.27.47/24 }
+      - { id: 504, hostname: docker5, gw: 10.24.27.1, ip: 10.24.27.48/24 }
+      - { id: 505, hostname: docker6, gw: 10.24.27.1, ip: 10.24.27.49/24 } 
+     
+
+  tasks:
+  - name: Create a multiple containers 
+    shell: |
+      pct create {{ item.id }} files-storage:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+        -hostname "{{ item.hostname }}" \
+        -cores {{ cores }} \
+        -memory {{ memory }} \
+        -storage "{{ storage }}" \
+        -password "{{ password }}" \
+        -net0 name={{ net0_name }},bridge={{ bridge }},gw={{ item.gw }},ip={{ item.ip }},firewall={{ firewall }},type={{ type }},rate={{ rate }} \
+        -nameserver "{{ dns }}" \
+        -rootfs "{{ storage }}:{{ gb }}" \
+        -unprivileged 1 \
+        -features keyctl=1,nesting=1 \
+    args:
+      executable: /bin/bash
+    loop:
+      "{{ containers }}"
+
+  - name: Start container
+    shell: |
+      pct start {{ item.id }} 
+    args:
+      executable: /bin/bash
+    loop:
+      "{{ containers }}"
+
+
+  - name: change ssh
+    shell: |  
+      pct exec {{ item.id }} -- bash -c 'sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/" /etc/ssh/sshd_config'
+      pct exec {{ item.id }} -- bash -c 'systemctl restart ssh'              
+
+    args:
+      executable: /bin/bash
+    loop:
+      "{{ containers }}"
+
+  - name: change ssh
+    shell: |  
+      pct exec {{ item.id }} -- bash -c 'apt update'
+      pct exec {{ item.id }} -- bash -c 'apt install docker.io docker-compose -y'              
+
+    args:
+      executable: /bin/bash
+    loop:
+      "{{ containers }}"
+
+- name: Create and start a proxmox container
+  hosts: pve1270
+  tasks:
+  - name: stop container for mitigating
+    shell: |
+      pct stop 502
+      pct stop 503
+      pct stop 504
+      pct stop 505
+    args:
+      executable: /bin/bash
+
+  - name: migrate to other nodes
+    shell: |
+      pct migrate 502 pve1271
+      pct migrate 503 pve1271
+      pct migrate 504 pve1272
+      pct migrate 505 pve1272
+    args:
+      executable: /bin/bash
+
+
+- name: start a proxmox container
+  hosts: pve1271
+  tasks:
+  - name: Start container
+    shell: |
+      pct start 502
+      pct start 503
+
+    args:
+      executable: /bin/bash
+
+- name: start a proxmox container
+  hosts: pve1272
+  tasks:
+  - name: Start container
+    shell: |
+      pct start 504
+      pct start 505
+    args:
+      executable: /bin/bash
+

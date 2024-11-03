@@ -1,0 +1,28 @@
+# deployment.yaml
+name: mysql
+app: mysql
+namespace: database
+image: mysql:latest
+container_name: mysql
+port: 3306
+
+storage_name: mysql-persistent-storage
+container_store_loc: /var/lib/mysql
+
+# mysql-secret.yaml
+secret_yaml: mysql-secret
+password: Ubuntu
+
+# mysql-storage.yaml
+Claim_name: mysql-pv-claim
+mysql_storge_path: "/mnt/data"
+storage: 2Gi
+
+# adminer.yaml
+adminer_name: adminer
+adminer_app: adminer
+adminer_container_name: adminer
+adminer_image: adminer
+adminer_port: 8080
+container_port: 8080
+outside_port: 30006

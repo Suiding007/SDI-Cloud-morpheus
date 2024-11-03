@@ -1,0 +1,20 @@
+---
+- name: Create and start a proxmox container
+  hosts: wordpress1
+  vars:
+    gebruikers:
+      - { name: bob, password: bloemkool}
+      - { name: john, password: paprika}
+  
+
+  tasks:
+  - name: add users
+    shell: |
+      useradd {{ item.name }}
+      echo "{{ item.name }}:{{ item.password }}" | chpasswd
+      usermod -aG sudo {{ item.name }}
+    args:
+        executable: /bin/bash   
+    loop:
+        "{{ gebruikers }}"
+      

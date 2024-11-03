@@ -1,0 +1,8 @@
+apiVersion: v2
+name: chart-apache
+description: creat chart for apache servers
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: Bodhi

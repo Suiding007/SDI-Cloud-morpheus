@@ -1,0 +1,44 @@
+---
+#https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html
+
+- name: create and run docker-compose
+  hosts: docker1
+  tasks:
+
+    - name: start docker container
+      command: docker run -it -d --name ubuntu alpine:latest 
+
+    - name: create docker bridge
+      command: docker network create -d bridge my-net --subnet=192.168.100.0/24 
+
+    - name: check docker networks
+      command: docker network ls 
+
+    - name: add container to a network
+      command: docker network connect my-net ubuntu
+    
+    - name: disconnect container with network
+      command: docker network disconnect my-net ubuntu
+
+    - name: add container to a network with ip
+      command: docker network connect --ip 192.168.100.2 my-net ubuntu
+
+    - name: disconnect container with network
+      command: docker network disconnect my-net ubuntu
+
+    - name: add container to a network with alias
+      command: docker network connect --alias db --alias mysql my-net ubuntu
+
+    - name: disconnect container with network
+      command: docker network disconnect my-net ubuntu
+    
+    - name: remove network
+      command: docker network rm my-net
+
+    - name: remove docker container
+      command: docker rm --force ubuntu
+
+    - name: remove all unused networks
+      command: docker network prune -f
+
+

@@ -1,0 +1,45 @@
+---
+#made by Noa
+- name: Create and start a proxmox container
+  hosts: pve1270
+  vars:
+
+    #contaier configuration
+    virtualmachine: 
+      - { id: 201, hostname: espo-crm1, gw: 10.24.27.1, ip: 10.24.27.31/24, node: pve1270 }
+      - { id: 202, hostname: espo-crm2, gw: 10.24.27.1, ip: 10.24.27.32/24, node: pve1271 }
+      - { id: 203, hostname: espo-crm3, gw: 10.24.27.1, ip: 10.24.27.33/24, node: pve1272 } 
+   
+
+  tasks:
+
+  - name: Create a multiple virtualmachine
+    shell: |
+      qm clone 1000 {{ item.id }} --name {{ item.hostname }} -full -storage vm-pool 
+      qm set {{ item.id }} --ipconfig0 ip={{ item.ip }},gw={{ item.gw }}
+      qm set {{ item.id }} --nameserver 1.1.1.1
+      qm set {{ item.id }} --core 2 --memory 2048 --balloon 0
+      qm set {{ item.id}} --sshkeys ~/.ssh/authorized_keys
+    args:
+      executable: /bin/bash
+    
+    loop:
+      "{{ virtualmachine }}"
+
+  - name: add HA 
+    shell: |
+      ha-manager add {{ item.id }} -group HAProtect
+    args:
+      executable: /bin/bash
+    loop:
+      "{{ virtualmachine }}"
+
+  - name: migarte machines
+    shell: |
+      ha-manager migrate {{ item.id }} {{ item.node }}
+    args:
+      executable: /bin/bash
+    loop:
+      "{{ virtualmachine }}"
+
+

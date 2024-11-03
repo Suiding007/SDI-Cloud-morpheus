@@ -1,0 +1,8 @@
+apiVersion: v2
+name: chart-mysql
+description: creat chart for mysql database
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: Bodhi

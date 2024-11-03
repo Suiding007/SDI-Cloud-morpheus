@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.adminer_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.adminer_app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.adminer_app }}
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: DoesNotExist
+      containers:
+        - name: {{ .Values.adminer_container_name }}
+          image: {{ .Values.adminer_image}}
+          ports:
+            - containerPort: {{ .Values.container_port}}
+

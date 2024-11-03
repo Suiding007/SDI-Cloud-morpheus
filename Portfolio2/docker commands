@@ -1,0 +1,47 @@
+#https://docs.docker.com/reference/cli/docker/swarm/join-token/
+
+#####################docker swarm####################################################
+#create docker swarm manager node
+sudo Docker Swarm init --advertise-addr <ip manger node>
+
+# check nodes inside the swaem
+sudo docker node ls
+
+#create a docker services
+sudo docker service create --name HelloWorld alpine ping docker.com
+
+#advertise service over all the work nodes inside the swarm by using --mode global
+sudo docker service create --name HelloWorld --mode global alpine ping docker.com
+
+#check running services inside a docker swarm
+sudo docker service ls 
+
+#create docker worker toker
+sudo docker swarm join-token worker
+
+or
+
+sudo docker swarm join-token --rotate worker
+
+#create new docker manager token
+sudo docker swarm join-token manager
+
+#node to leave swarm
+sudo docker swarm leave
+
+or
+
+sudo docker swarm leave --force
+
+#delete leaved swarm node
+sudo docker node rm <id>
+
+#####################docker swarm####################################################
+
+#####################docker install##################################################
+#docker install command
+sudo apt install docker.io -y
+
+#docker install compose command
+sudo apt install docker-compose -y
+#####################docker install##################################################

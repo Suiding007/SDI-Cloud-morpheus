@@ -1,0 +1,45 @@
+# https://medium.com/@midejoseph24/deploying-mysql-on-kubernetes-16758a42a746
+# https://medium.com/@carlosviniciustenorio/deploying-net-applications-mysql-and-adminer-in-k8s-af584809332c
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.app }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app }}
+    spec:
+      containers:
+        - image: {{ .Values.image }}
+          name: {{ .Values.container_name }}
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret_yaml }}
+                  key: password
+            - name: MYSQL_DATABASE
+              value: mydatabase
+            - name: MYSQL_USER
+              value: myuser
+            - name: MYSQL_PASSWORD
+              value: mypassword
+
+          ports:
+          - containerPort: {{ .Values.port }}
+            name: {{ .Values.container_name }}
+          volumeMounts:
+          - name: {{ .Values.storage_name }}
+            mountPath: {{ .Values.container_store_loc }}
+      volumes:
+        - name: {{ .Values.storage_name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.Claim_name }}

@@ -1,0 +1,140 @@
+---
+#https://doc.traefik.io/traefik/getting-started/quick-start/
+- name: create and run docker-compose for nginx
+  hosts: docker4
+  tasks:
+    - name: Create Directory Nginx-loadbalancer
+      file:
+        path: ./nginx-loadbalancer
+        state: directory 
+   
+    - name: Create Directory app1
+      file:
+        path: ./nginx-loadbalancer/app1
+        state: directory
+    
+
+    - name: Create Directory nginx
+      file:
+        path: ./nginx-loadbalancer/nginx
+        state: directory
+
+
+    - name: create docker-compose file at the root of project
+      file:
+        path: ./nginx-loadbalancer/docker-compose.yaml
+        state: touch
+
+    - name: create file app1.py
+      file:
+        path: ./nginx-loadbalancer/app1/app1.py
+        state: touch
+
+    - name: create file requirements.py
+      file:
+        path: ./nginx-loadbalancer/app1/requirements.txt
+        state: touch
+
+    - name: create file Dockerfile
+      file:
+        path: ./nginx-loadbalancer/app1/Dockerfile
+        state: touch
+
+    - name: create file nginx.conf
+      file:
+        path: ./nginx-loadbalancer/nginx/nginx.conf
+        state: touch
+
+    - name: create file Dockerfile
+      file:
+        path: ./nginx-loadbalancer/nginx/Dockerfile
+        state: touch
+
+
+    - name: Insert config into the docker-compose file
+      copy:
+        dest: ./nginx-loadbalancer/docker-compose.yaml
+        content: |
+          version: '3'
+          services:
+            app1:
+              build: ./app1
+              expose:
+              - "5000"
+            nginx:
+              build: ./nginx 
+              ports:
+              - "8080:80"
+              depends_on:
+                - app1
+
+
+
+    - name: Insert config into the docker-compose file
+      copy:
+        dest: ./nginx-loadbalancer/app1/app1.py
+        content: |
+          from flask import Flask
+          import socket
+
+          app = Flask(__name__)
+
+          @app.route('/')
+          def hello():
+              return f"Hello from container {socket.gethostname()}"
+
+          if __name__ == "__main__":
+              app.run(host='0.0.0.0')
+
+
+    - name: Insert config into the docker-compose file
+      copy:
+        dest: ./nginx-loadbalancer/app1/requirements.txt
+        content: |
+          Flask==3.0.3
+          Werkzeug==3.0.0
+          
+
+    - name: Insert config into the docker-compose file
+      copy:
+        dest: ./nginx-loadbalancer/app1/Dockerfile
+        content: |
+          FROM python:3
+          COPY ./requirements.txt /requirements.txt
+          WORKDIR /
+          RUN pip install -r requirements.txt
+          COPY . /
+          ENTRYPOINT [ "python3" ]
+          CMD [ "app1.py" ]
+
+
+
+    - name: Insert config into the docker-compose file
+      copy:
+        dest: ./nginx-loadbalancer/nginx/Dockerfile
+        content: |
+          FROM nginx
+          RUN rm /etc/nginx/conf.d/default.conf
+          COPY nginx.conf /etc/nginx/conf.d/default.conf
+    
+
+    - name: Insert config into the docker-compose file
+      copy:
+        dest: ./nginx-loadbalancer/nginx/nginx.conf
+        content: |
+          upstream loadbalancer {
+              server app1:5000;
+          }
+
+          server {
+              location / {
+                  proxy_pass http://loadbalancer;
+              }
+          }     
+                    
+    - name: Build nginx loadbalancer
+      command: docker-compose up -d --scale app1=2
+      args:
+          chdir: ./nginx-loadbalancer
+
+   

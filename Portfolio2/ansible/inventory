@@ -1,0 +1,19 @@
+[nodes]
+pve1270 ansible_host=10.24.27.2 ansible_ssh_pass=HanzeExperience123
+pve1271 ansible_host=10.24.27.3 ansible_ssh_pass=HanzeExperience123
+pve1272 ansible_host=10.24.27.4 ansible_ssh_pass=HanzeExperience123
+
+[docker]
+docker1 ansible_host=10.24.27.40 ansible_ssh_pass=Ubuntu
+docker2 ansible_host=10.24.27.41 ansible_ssh_pass=Ubuntu
+docker3 ansible_host=10.24.27.42 ansible_ssh_pass=Ubuntu
+docker4 ansible_host=10.24.27.47 ansible_ssh_pass=Ubuntu
+docker5 ansible_host=10.24.27.48 ansible_ssh_pass=Ubuntu
+docker6 ansible_host=10.24.27.49 ansible_ssh_pass=Ubuntu
+
+[docker:vars]
+ansible_ssh_user=root
+ansible_password=Ubuntu
+
+# Disable StrictHostKeyChecking and track by hostname (instead of IP)
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o HostKeyAlias=%h'

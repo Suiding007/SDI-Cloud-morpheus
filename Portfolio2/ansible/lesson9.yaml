@@ -1,0 +1,96 @@
+---
+#sudo ansible-playbook -i /etc/ansible/hosts docker-swarm.yaml -u root --ask-pass
+#https://serverfault.com/questions/537060/how-to-see-stdout-of-ansible-commands
+#https://stackoverflow.com/questions/62980214/how-to-set-shell-output-to-a-variable-in-ansible 
+
+- name: Create docker swarm
+  hosts: docker1
+  tasks:
+  - name: activate docker swarm manager
+    shell: |
+      manager=$(hostname -I | awk '{print $1}')
+      docker swarm init --advertise-addr $manager
+    args:
+      executable: /bin/bash
+
+  - name: add docker swarm worker
+    shell: |
+      docker swarm join-token worker -q
+    register: testing
+
+  - name: set facts
+    set_fact:
+      myvar: "{{ testing.stdout }}"
+  
+  - debug: msg="{{ testing.stdout }}"
+
+- hosts: docker2
+  tasks:
+  - name: Print the variable
+    shell: |
+      docker swarm join --token {{ hostvars['docker1'].myvar }} 10.24.27.40:2377
+    args:
+      executable: /bin/bash
+
+
+
+
+- name: Create docker swarm
+  hosts: docker3
+  tasks:
+  - name: activate docker swarm manager
+    shell: |
+      manager=$(hostname -I | awk '{print $1}')
+      docker swarm init --advertise-addr $manager
+    args:
+      executable: /bin/bash
+
+  - name: add docker swarm worker
+    shell: |
+      docker swarm join-token worker -q
+    register: testing
+
+  - name: set facts
+    set_fact:
+      myvar: "{{ testing.stdout }}"
+  
+  - debug: msg="{{ testing.stdout }}"
+
+- hosts: docker4
+  tasks:
+  - name: Print the variable
+    shell: |
+      docker swarm join --token {{ hostvars['docker3'].myvar }} 10.24.27.42:2377
+    args:
+      executable: /bin/bash
+
+
+
+- name: Create docker swarm
+  hosts: docker5
+  tasks:
+  - name: activate docker swarm manager
+    shell: |
+      manager=$(hostname -I | awk '{print $1}')
+      docker swarm init --advertise-addr $manager
+    args:
+      executable: /bin/bash
+
+  - name: add docker swarm worker
+    shell: |
+      docker swarm join-token worker -q
+    register: testing
+
+  - name: set facts
+    set_fact:
+      myvar: "{{ testing.stdout }}"
+  
+  - debug: msg="{{ testing.stdout }}"
+
+- hosts: docker6
+  tasks:
+  - name: Print the variable
+    shell: |
+      docker swarm join --token {{ hostvars['docker5'].myvar }} 10.24.27.48:2377
+    args:
+      executable: /bin/bash

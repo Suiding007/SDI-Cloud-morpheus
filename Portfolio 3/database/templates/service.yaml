@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  ports:
+  - port:  {{ .Values.port }}
+  selector:
+    app: {{ .Values.app }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.adminer_name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{ .Values.adminer_app }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.adminer_port}}
+      targetPort: {{ .Values.container_port}}
+      nodePort: {{ .Values.outside_port }}
