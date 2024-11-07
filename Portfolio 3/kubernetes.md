@@ -35,3 +35,11 @@ database
 - argocd
 - nginx-ingress
 ```
+
+## helm commands 
+```
+helm install webserver ./website -n webserver
+helm list webserver
+helm install adminer ./database -n database
+helm list database
+```

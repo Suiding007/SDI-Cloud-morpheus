@@ -1,9 +1,6 @@
-name: apache-container
-name_service: apache-service
-namespaces: webserver
-app: apache
 replicaCount: 2
-image: httpd:latest
-port: 80
-containerport: 8080
-outside_port: 30008
+appname: apache
+name: webserver
+namespaces: webserver
+container_port: 80
+NodePort: 30004 

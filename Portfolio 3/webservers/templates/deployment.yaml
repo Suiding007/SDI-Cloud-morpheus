@@ -1,23 +1,22 @@
-# helm install apache-server ./webservers
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.name }}
   namespace: {{ .Values.namespaces }}
   labels:
-    app: {{ .Values.app }}
+    app: {{ .Values.appname }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.app }}
+      app: {{ .Values.appname }}
   template:
     metadata:
       labels:
-        app: {{ .Values.app }}
+        app: {{ .Values.appname }}
     spec:
       containers:
         - name: {{ .Values.name }}
-          image: {{ .Values.image }}
+          image: httpd:latest
           ports:
-            - containerPort: {{ .Values.containerport }}
+            - containerPort: {{ .Values.container_port }}
