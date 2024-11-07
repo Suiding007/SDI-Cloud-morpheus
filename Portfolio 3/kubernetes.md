@@ -1,4 +1,4 @@
-# kubernetes cluster info
+# kubernetes cluster information
 ## install kubernetes
 ```
 https://medium.com/@mr.gmanojkumar/a-step-by-step-guide-to-installing-kubernetes-cluster-on-ubuntu-22-04-641726cb47ee
